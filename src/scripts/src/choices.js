@@ -1,6 +1,6 @@
 import Fuse from 'fuse.js';
 import classNames from 'classnames';
-import Store from './store/index.js';
+import Store from './store/store.js';
 import {
   addItem,
   removeItem,
@@ -11,8 +11,7 @@ import {
   addGroup,
   clearAll,
   clearChoices,
-}
-from './actions/index';
+} from './actions/actions';
 import {
   isScrolledIntoView,
   getAdjacentEl,
@@ -28,8 +27,7 @@ import {
   generateId,
   triggerEvent,
   findAncestorByAttrName
-}
-from './lib/utils.js';
+} from './lib/utils.js';
 import './lib/polyfills.js';
 
 /**

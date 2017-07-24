@@ -1,13 +1,13 @@
 import 'whatwg-fetch';
 import 'es6-promise';
 import 'core-js/fn/object/assign';
-import Choices from '../../assets/scripts/src/choices.js';
-import itemReducer from '../../assets/scripts/src/reducers/items.js';
-import choiceReducer from '../../assets/scripts/src/reducers/choices.js';
+import Choices from '../../src/scripts/src/choices.js';
+import itemReducer from '../../src/scripts/src/reducers/items.js';
+import choiceReducer from '../../src/scripts/src/reducers/choices.js';
 import {
   addItem as addItemAction,
   addChoice as addChoiceAction
-} from '../../assets/scripts/src/actions/index.js';
+} from '../../src/scripts/src/actions/actions.js';
 
 describe('Choices', () => {
   describe('should initialize Choices', () => {
