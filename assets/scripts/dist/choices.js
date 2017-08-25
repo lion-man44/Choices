@@ -2401,10 +2401,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var placeholder = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
 	      var keyCode = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : null;
 
-	      var passedValue = (0, _utils.isType)('String', value) ? value.trim() : value;
+	      value = value && value.toString().trim();
 	      var passedKeyCode = keyCode;
 	      var items = this.store.getItems();
-	      var passedLabel = label || passedValue;
+	      var passedLabel = label || value;
 	      var passedOptionId = parseInt(choiceId, 10) || -1;
 
 	      // Get group if group ID passed
@@ -2415,15 +2415,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      // If a prepended value has been passed, prepend it
 	      if (this.config.prependValue) {
-	        passedValue = this.config.prependValue + passedValue.toString();
+	        value = this.config.prependValue + value.toString();
 	      }
 
 	      // If an appended value has been passed, append it
 	      if (this.config.appendValue) {
-	        passedValue += this.config.appendValue.toString();
+	        value += this.config.appendValue.toString();
 	      }
 
-	      this.store.dispatch((0, _index3.addItem)(passedValue, passedLabel, id, passedOptionId, groupId, customProperties, placeholder, passedKeyCode));
+	      this.store.dispatch((0, _index3.addItem)(value, passedLabel, id, passedOptionId, groupId, customProperties, placeholder, passedKeyCode));
 
 	      if (this.isSelectOneElement) {
 	        this.removeActiveItems(id);
@@ -2433,7 +2433,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      if (group && group.value) {
 	        (0, _utils.triggerEvent)(this.passedElement, 'addItem', {
 	          id: id,
-	          value: passedValue,
+	          value: value,
 	          label: passedLabel,
 	          groupValue: group.value,
 	          keyCode: passedKeyCode
@@ -2441,7 +2441,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        (0, _utils.triggerEvent)(this.passedElement, 'addItem', {
 	          id: id,
-	          value: passedValue,
+	          value: value,
 	          label: passedLabel,
 	          keyCode: passedKeyCode
 	        });
@@ -2515,6 +2515,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var keyCode = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : null;
 
 	      if (typeof value === 'undefined' || value === null) {
+	        return;
+	      }
+
+	      value = value && value.toString();
+
+	      var items = this.store.getItems();
+	      if (items.some(function (item) {
+	        return item.value === value;
+	      })) {
 	        return;
 	      }
 
