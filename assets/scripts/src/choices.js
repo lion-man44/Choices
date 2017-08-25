@@ -2234,10 +2234,10 @@ class Choices {
     placeholder = false,
     keyCode = null,
   ) {
-    let passedValue = isType('String', value) ? value.trim() : value;
+    value = value && value.toString().trim();
     const passedKeyCode = keyCode;
     const items = this.store.getItems();
-    const passedLabel = label || passedValue;
+    const passedLabel = label || value;
     const passedOptionId = parseInt(choiceId, 10) || -1;
 
     // Get group if group ID passed
@@ -2248,17 +2248,17 @@ class Choices {
 
     // If a prepended value has been passed, prepend it
     if (this.config.prependValue) {
-      passedValue = this.config.prependValue + passedValue.toString();
+      value = this.config.prependValue + value.toString();
     }
 
     // If an appended value has been passed, append it
     if (this.config.appendValue) {
-      passedValue += this.config.appendValue.toString();
+      value += this.config.appendValue.toString();
     }
 
     this.store.dispatch(
       addItem(
-        passedValue,
+        value,
         passedLabel,
         id,
         passedOptionId,
@@ -2277,7 +2277,7 @@ class Choices {
     if (group && group.value) {
       triggerEvent(this.passedElement, 'addItem', {
         id,
-        value: passedValue,
+        value,
         label: passedLabel,
         groupValue: group.value,
         keyCode: passedKeyCode,
@@ -2285,7 +2285,7 @@ class Choices {
     } else {
       triggerEvent(this.passedElement, 'addItem', {
         id,
-        value: passedValue,
+        value,
         label: passedLabel,
         keyCode: passedKeyCode,
       });
@@ -2356,6 +2356,13 @@ class Choices {
     keyCode = null,
   ) {
     if (typeof value === 'undefined' || value === null) {
+      return;
+    }
+
+    value = value && value.toString();
+
+    const items = this.store.getItems();
+    if (items.some(item => item.value === value)) {
       return;
     }
 
