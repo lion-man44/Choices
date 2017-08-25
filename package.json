@@ -6,7 +6,7 @@
   "types": "index.d.ts",
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint assets/**/*.js",
+    "lint": "eslint assets/scripts/src/**/*.js",
     "test": "karma start --single-run --no-auto-watch tests/karma.config.js",
     "test:watch": "karma start --auto-watch --no-single-run tests/karma.config.js",
     "css:watch": "nodemon -e scss -x \"npm run css:build\"",
